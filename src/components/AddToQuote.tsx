@@ -15,8 +15,8 @@ export function AddToQuote({ name, slug, mode = "scroll", className = "" }: { na
 
   if (mode === "link") {
     return (
-      <Link href={`/book?service=${slug}`} className={base} aria-label={`Add ${name} to my quote`}>
-        <Plus /> Add to quote
+      <Link href={`/book?service=${slug}`} className={base}>
+        <Plus /> Add to quote<span className="sr-only">for {name}</span>
       </Link>
     );
   }
@@ -25,7 +25,6 @@ export function AddToQuote({ name, slug, mode = "scroll", className = "" }: { na
     <button
       type="button"
       className={base}
-      aria-label={added ? `${name} is in your quote — go to quote form` : `Add ${name} to my quote`}
       onClick={() => {
         quoteStore.add(name);
         if (!added) toast(`${name} added to your quote`);
@@ -36,6 +35,7 @@ export function AddToQuote({ name, slug, mode = "scroll", className = "" }: { na
       }}
     >
       {added ? <Check /> : <Plus />} {added ? "Added — view quote" : "Add to quote"}
+      <span className="sr-only">for {name}</span>
     </button>
   );
 }

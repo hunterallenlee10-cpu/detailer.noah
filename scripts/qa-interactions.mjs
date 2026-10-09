@@ -29,7 +29,7 @@ for (let i = 0; i < 6; i++) {
 check("Header nav reachable by keyboard", ["Services", "Work", "About", "Get a Quote"].every((t) => tabStops.includes(t)), tabStops.join(" | "));
 
 // 2. Add to quote → form pre-checked
-const add = page.getByRole("button", { name: /Add Pet Hair Removal to my quote/ });
+const add = page.getByRole("button", { name: /Add to quote for Pet Hair Removal/ });
 await add.focus();
 await page.keyboard.press("Enter");
 await page.waitForTimeout(1600);
@@ -83,7 +83,7 @@ await page.keyboard.press("Enter");
 check("FAQ opens with Enter", await page.locator("details").first().evaluate((d) => d.open));
 
 // 5. Copy code
-await page.getByRole("button", { name: /Copy discount code NOAH/ }).focus();
+await page.getByRole("button", { name: /Discount code NOAH/ }).focus();
 await page.keyboard.press("Enter");
 await page.waitForTimeout(300);
 check("Copy code copies NOAH", (await page.evaluate(() => navigator.clipboard.readText())) === "NOAH");

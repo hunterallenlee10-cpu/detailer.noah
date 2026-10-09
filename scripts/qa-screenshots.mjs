@@ -21,7 +21,9 @@ for (const w of widths) {
   const ctx = await browser.newContext({ viewport: { width: w, height: w < 768 ? 844 : 900 }, deviceScaleFactor: 1, reducedMotion: reduced ? "reduce" : "no-preference" });
   const page = await ctx.newPage();
   page.on("pageerror", (e) => issues.push(`[${w}] pageerror: ${e.message}`));
-  page.on("console", (m) => m.type() === "error" && issues.push(`[${w}] console: ${m.text()}`));
+  page.on("console", (m) => m.type() === "error" && !/status of 404/.test(m.text()) && issues.push(`[${w}] console: ${m.text()}`));
+  // Log failing requests with their URL (the 404 route's own 404 is expected and skipped).
+  page.on("response", (r) => r.status() >= 400 && !r.url().includes("this-page-does-not-exist") && issues.push(`[${w}] ${r.status()} ${r.url()}`));
   for (const r of routes) {
     await page.goto(base + r, { waitUntil: "networkidle" });
     // scroll through so whileInView reveals fire
