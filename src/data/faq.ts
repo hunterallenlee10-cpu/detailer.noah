@@ -20,7 +20,7 @@ export const faq = [
   },
   {
     q: "What areas do you serve?",
-    a: `${site.city}, ${site.region} and the surrounding areas. Not sure if you're in range? Send a quote request and ask.`,
+    a: `${site.city}, ${site.region} and about ${site.serviceRadiusMiles} miles around it — roughly a ${site.serviceRadiusMiles * 2}-mile-wide area. Farther than that? Request a quote and I'll find a way to get to you.`,
   },
   {
     q: "What products do you use?",

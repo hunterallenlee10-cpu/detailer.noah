@@ -46,6 +46,15 @@ SEO plumbing: `AutoWash` JSON-LD (no rating, no price range, phone/email only wh
 5. Any slot without a photo falls back to an abstract "clear coat" placeholder, never a stand-in car.
 6. Replace `/public/brand/*.svg` and the `Badge` component with Noah's original logo files if he has them.
 
+## Service-area map
+
+The homepage map is real geography: shaded relief from open elevation data (AWS Terrain Tiles, from USGS/SRTM), plus Natural Earth roads, rivers and state lines (public domain). Everything is projected around Harrisonburg.
+
+- The blue zone is `serviceRadiusMiles` (50 mi, about a 100-mile diameter) in `src/site.config.ts`. It's strongest at Harrisonburg and fades toward the edge. Change the number and the zone, ring labels, legend, FAQ answer, SEO page copy and the `GeoCircle` in the structured data all follow.
+- Town labels are map context only. Which towns appear, and on which side of the dot, is set in `TOWN_LABELS` in `src/components/ServiceArea.tsx`. Phones show a decluttered set.
+- "Farther than this? Request a quote and I'll find a way to service you." overlays the map on wide screens and sits below it on phones and tablets.
+- To regenerate the art (different centre or extent), run `node scripts/build-service-map.mjs`. It writes `public/map/valley-relief.webp` and `src/data/service-map.json`.
+
 ## Connecting the quote form
 
 The form runs in **demo mode** until an endpoint is set. In demo mode it never claims a request was sent. Instead it sends people to Noah's Google Form or Instagram DM, with a "Copy my answers" button.
@@ -71,6 +80,7 @@ All business facts live in **`src/site.config.ts`**. Empty fields hide their UI 
 
 - [ ] **Phone** (`phone`): footer + JSON-LD appear once filled
 - [ ] **Email** (`email`)
+- [ ] **Service radius**: map + copy say about 50 miles (100-mile diameter). Confirm with Noah (`serviceRadiusMiles`)
 - [ ] **Exact towns served** (`serviceTowns`): shows chips on the map section + SEO page and adds them to `areaServed`
 - [ ] **Real domain** (`domain`): currently `https://noahsdetailing.example`
 - [ ] **Current merch prices** (`merch`): $38 hoodie / $26 tee are from an older story
