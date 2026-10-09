@@ -1,0 +1,8 @@
+<!-- Circle profile logo inspired by @detailer.noah's avatar. TODO: replace with the owner's original file if available. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <circle cx="200" cy="200" r="200" fill="#07090D"/>
+  <g font-family="'Barlow Condensed','Arial Narrow',Arial,sans-serif" font-style="italic" font-weight="900" text-anchor="middle" fill="#2E6BFF" stroke="#EAF2FF" stroke-width="3" paint-order="stroke" stroke-linejoin="round">
+    <text x="200" y="190" font-size="84" letter-spacing="2">NOAH'S</text>
+    <text x="200" y="272" font-size="88">DETAILING</text>
+  </g>
+</svg>

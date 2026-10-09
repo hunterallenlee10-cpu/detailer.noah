@@ -1,0 +1,13 @@
+node_modules
+.next
+out
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+.vercel
+.DS_Store
+# Raw photos are large; processed WebP lives in /public/work
+source-photos/*
+!source-photos/.gitkeep
+!source-photos/README.md
+qa/lighthouse-*.json

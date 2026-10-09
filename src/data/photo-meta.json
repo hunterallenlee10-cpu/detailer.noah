@@ -1,0 +1,19 @@
+{
+  "_comment": "Keyed by filename stem (without -before/-after). Used by scripts/process-images.mjs for alt text + captions. Edit freely.",
+  "f150-noahs-truck": { "vehicle": "Noah's white Ford F-150", "service": "Wash & wax", "alt": "Noah's white Ford F-150 freshly detailed — Noah's Detailing, mobile detailing in Harrisonburg VA" },
+  "minivan-reset": { "vehicle": "Minivan", "service": "Full reset" },
+  "exterior-trim-restoration": { "vehicle": "SUV", "service": "Exterior wash + plastic trim restoration + standard interior" },
+  "farm-trailers": { "vehicle": "Farm trailers", "service": "Trailer wash" },
+  "headlight": { "vehicle": "Headlights", "service": "Headlight restoration" },
+  "dart-pet-hair": { "vehicle": "Dodge Dart", "service": "Dog hair extraction" },
+  "jeep-extraction": { "vehicle": "Jeep", "service": "Full interior + extraction" },
+  "4runner-full-detail": { "vehicle": "Toyota 4Runner", "service": "Full detail" },
+  "camry-seat-shampoo": { "vehicle": "Toyota Camry", "service": "Full detail + seat shampoo" },
+  "corvette-c8r": { "vehicle": "Limited-edition Corvette C8.R", "service": "Detail" },
+  "miata-wash-wax": { "vehicle": "1995 Mazda Miata", "service": "Wash & wax" },
+  "boat-sealant": { "vehicle": "Boat", "service": "Inside & out + polymer paint sealant" },
+  "tractor": { "vehicle": "Large tractor", "service": "Equipment detail" },
+  "bmw-x3-black": { "vehicle": "Black BMW X3", "service": "Detail" },
+  "ram3500-wash-wax": { "vehicle": "Ram 3500", "service": "Wash & wax" },
+  "wrx-hand-wax": { "vehicle": "Subaru WRX", "service": "Hand wax" }
+}
