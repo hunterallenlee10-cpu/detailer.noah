@@ -30,9 +30,11 @@ export function CopyCode({ code }: { code: string }) {
       type="button"
       onClick={copy}
       className="group flex min-h-14 w-full items-center justify-between gap-4 rounded-2xl border border-dashed border-blue-glow/60 bg-ink/60 px-5 transition-colors hover:border-blue-glow"
-      aria-label={`Copy discount code ${code}`}
     >
-      <span className="display text-4xl tracking-wider text-foam">{code}</span>
+      <span className="display text-4xl tracking-wider text-foam">
+        <span className="sr-only">Discount code </span>
+        {code}
+      </span>
       <span className="flex items-center gap-2 text-sm font-bold text-blue-glow">
         {copied ? (
           <>

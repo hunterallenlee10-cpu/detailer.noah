@@ -47,12 +47,12 @@ export function Proof() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative block aspect-square overflow-hidden rounded-xl bg-panel"
-                  aria-label={`${l.vehicle} — ${l.service}. See more on Instagram (opens in new tab)`}
                 >
-                  <Photo id={id} crop="square" sizes="(min-width: 768px) 33vw, 50vw" className="transition-transform duration-700 ease-out group-hover:scale-105" />
+                  <Photo id={id} alt="" crop="square" sizes="(min-width: 768px) 33vw, 50vw" className="transition-transform duration-700 ease-out group-hover:scale-105" />
                   <div className={`absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink/90 via-ink/30 to-transparent p-3 opacity-100 transition-opacity duration-300 sm:p-5 ${real ? "md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100" : ""}`}>
                     <p className="text-sm font-bold text-foam sm:text-base">{l.vehicle}</p>
                     <p className="line-clamp-2 text-xs text-foam/75 sm:text-sm">{l.service}</p>
+                    <span className="sr-only">(see more on Instagram, opens in new tab)</span>
                   </div>
                 </a>
               </Reveal>
