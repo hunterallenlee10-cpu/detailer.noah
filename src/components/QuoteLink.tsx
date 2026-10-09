@@ -14,10 +14,14 @@ export function QuoteLink({ className, children, onNavigate }: { className?: str
       className={className}
       onClick={(e) => {
         onNavigate?.();
-        if (onHome && scrollToId("quote")) {
+        if (!onHome) return;
+        // SmoothScroll's capture handler usually started the glide already (defaultPrevented); otherwise do it here.
+        const handled = e.defaultPrevented || scrollToId("quote");
+        if (handled) {
           e.preventDefault();
           history.replaceState(null, "", "#quote");
-          setTimeout(() => document.getElementById("quote-heading")?.focus({ preventScroll: true }), 900);
+          // Hand keyboard focus to the form once the glide lands.
+          setTimeout(() => document.getElementById("quote-heading")?.focus({ preventScroll: true }), 1100);
         }
       }}
     >

@@ -5,6 +5,7 @@ import { AnimatePresence, m } from "motion/react";
 import { quoteEndpoint, site } from "@/site.config";
 import { services } from "@/data/services";
 import { quoteStore, useQuoteServices } from "@/lib/quote-store";
+import { scrollToTarget } from "@/lib/scroll";
 import { useToast } from "./Toast";
 import { ArrowRight, CameraIcon, Check, InstagramIcon } from "./icons";
 
@@ -123,7 +124,7 @@ export function QuoteForm({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" 
     pendingFocus.current = true;
     // Keep the top of the form in view on small screens.
     const top = formRef.current?.getBoundingClientRect().top ?? 0;
-    if (top < 0) window.scrollBy({ top: top - 96, behavior: "smooth" });
+    if (top < 0 && formRef.current) scrollToTarget(formRef.current);
   };
 
   const addFiles = (list: FileList | null) => {

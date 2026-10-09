@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "motion/react";
 import { nav, site } from "@/site.config";
+import { lockScroll } from "@/lib/scroll";
 import { Logo } from "./Logo";
 import { QuoteLink } from "./QuoteLink";
 import { InstagramIcon } from "./icons";
@@ -13,13 +14,25 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const bar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      // Reading-progress line (written straight to the DOM — no re-render per frame).
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (bar.current) bar.current.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Freeze the page behind the open mobile menu.
+  useEffect(() => {
+    lockScroll(open);
+    return () => lockScroll(false);
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -40,6 +53,12 @@ export function Header() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-blue focus:px-4 focus:py-2 focus:text-white">
         Skip to content
       </a>
+      <div
+        ref={bar}
+        aria-hidden="true"
+        className={`absolute inset-x-0 bottom-[-1px] h-0.5 origin-left bg-gradient-to-r from-blue to-blue-glow transition-opacity duration-300 ${solid ? "opacity-100" : "opacity-0"}`}
+        style={{ transform: "scaleX(0)" }}
+      />
       <div className="mx-auto flex h-[var(--header-h)] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <Logo onClick={close} />
 

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, Manrope } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import { site } from "@/site.config";
 import { Providers } from "@/components/Providers";
