@@ -31,7 +31,7 @@ export function AddToQuote({ name, slug, mode = "scroll", className = "" }: { na
         if (!added) toast(`${name} added to your quote`);
         setTimeout(() => {
           scrollToId("quote");
-          setTimeout(() => document.getElementById("quote-heading")?.focus({ preventScroll: true }), 1000);
+          setTimeout(() => document.getElementById("quote-heading")?.focus({ preventScroll: true }), 1300);
         }, 250);
       }}
     >

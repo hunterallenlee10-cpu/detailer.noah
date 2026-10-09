@@ -55,6 +55,17 @@ The homepage map is real geography: shaded relief from open elevation data (AWS 
 - "Farther than this? Request a quote and I'll find a way to service you." overlays the map on wide screens and sits below it on phones and tablets.
 - To regenerate the art (different centre or extent), run `node scripts/build-service-map.mjs`. It writes `public/map/valley-relief.webp` and `src/data/service-map.json`.
 
+## Smooth scrolling
+
+Lenis runs site-wide (`src/components/SmoothScroll.tsx`):
+- **Feel:** wheel and trackpad get a weighted glide (`lerp: 0.085`; lower is silkier, higher is snappier). Touch stays native.
+- **In-page links:** `#quote`, or `/#work` while on the homepage, glide to the section just under the fixed header and update the URL.
+- **Navigation:** momentum stops when you go to another page. Next decides where each page lands (top, a hash, or the Back-button position).
+- **Mobile menu:** page scrolling is paused while it's open.
+- **Code-driven scrolling:** quote buttons and form steps use `scrollToTarget()` in `src/lib/scroll.ts`, which goes through Lenis.
+- **Reduced motion:** Lenis is off when the visitor's system asks for less motion.
+- **Progress line:** a thin blue bar along the bottom of the header tracks how far down the page you are.
+
 ## Connecting the quote form
 
 The form runs in **demo mode** until an endpoint is set. In demo mode it never claims a request was sent. Instead it sends people to Noah's Google Form or Instagram DM, with a "Copy my answers" button.
@@ -101,6 +112,7 @@ npm run build && npx next start -p 3100 &
 NODE_PATH=$(npm root -g) node scripts/qa-screenshots.mjs http://localhost:3100 360,390,768,1024,1440   # → /qa/*.png (convert to JPG before committing) + overflow check
 REDUCED=1 NODE_PATH=$(npm root -g) node scripts/qa-screenshots.mjs http://localhost:3100 390          # reduced-motion pass
 NODE_PATH=$(npm root -g) node scripts/qa-interactions.mjs http://localhost:3100                        # keyboard / form / JSON-LD checks
+NODE_PATH=$(npm root -g) node scripts/qa-scroll.mjs http://localhost:3100                              # Lenis smooth-scroll checks
 ```
 
 Last QA run (with real photos):
