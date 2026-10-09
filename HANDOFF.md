@@ -83,10 +83,10 @@ All business facts live in **`src/site.config.ts`**. Empty fields hide their UI 
 - [ ] **Service radius**: map + copy say about 50 miles (100-mile diameter). Confirm with Noah (`serviceRadiusMiles`)
 - [ ] **Exact towns served** (`serviceTowns`): shows chips on the map section + SEO page and adds them to `areaServed`
 - [ ] **Real domain** (`domain`): currently `https://noahsdetailing.example`
-- [ ] **Current merch prices** (`merch`): $38 hoodie / $26 tee are from an older story
+- [ ] **Merch**: $38 hoodie / $26 tee and the product mockups come from his Apparel story highlight (reposted Apr 1, 2025). Confirm prices are still current and which sizes are in stock (`merch` in `site.config.ts`, images in `/public/merch/`)
 - [ ] **Permission to name the farm client** (`farmClientName`): currently says "farm trailers" generically
 - [ ] **Photo permission + originals**: OK to use his Instagram photos; original before/after files (minivan, Dart, Jeep) for more sliders; an engine-bay and seat-shampoo shot to replace the stock images
-- [ ] **Original logo files** (badge + wordmark) to replace the recreated SVGs
+- [ ] **Original logo files**: the badge is now redrawn to match his apparel logo (pill outline, truck, blue DETAILING band). Swap in his original vector file if he has one
 - [ ] **Quote form endpoint** (`NEXT_PUBLIC_QUOTE_ENDPOINT`), or keep the Google Form fallback
 - [ ] **Google Business Profile**: none found. Once live with real reviews, add them to `src/data/reviews.ts` (the `<Reviews />` block stays hidden while it's empty). Never fabricate.
 - [ ] **Pricing**: the site is quote-only by design. Only add prices if Noah wants them public.

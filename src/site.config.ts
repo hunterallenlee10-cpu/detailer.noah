@@ -22,10 +22,11 @@ export const site = {
   googleForm:
     "https://docs.google.com/forms/d/e/1FAIpQLSdPR4x7gAUN4erTGe9WAbN75Ex722b8zwKataubAJweiADp-g/viewform",
   partnerDiscount: { brand: "Showcar Care", url: "https://showcarcare.com", code: "NOAH", percent: 10 },
+  // From Noah's "Apparel" story highlight (prices reposted Apr 1, 2025). TODO: confirm still current + sizes in stock.
   merch: [
-    { item: "Hoodie", price: 38 },
-    { item: "T-Shirt", price: 26 },
-  ], // TODO confirm current merch prices
+    { item: "Hoodie", price: 38, front: "/merch/hoodie-front.webp", back: "/merch/hoodie-back.webp", note: "Black pullover · kangaroo pocket" },
+    { item: "T-Shirt", price: 26, front: "/merch/tee-front.webp", back: "/merch/tee-back.webp", note: "Black crew neck · same design" },
+  ],
   domain: "https://noahsdetailing.example", // TODO real domain
   /** Only name the farm client publicly once the owner approves. */
   farmClientName: "", // TODO: e.g. "Zion's Farm of Virginia" — only with permission

@@ -1,8 +1,8 @@
-// Badge inspired by Noah's apparel logo (rounded shield, pickup line-art, NOAH'S / DETAILING / NOBLE & MOBILE).
-// TODO: replace with the owner's original logo files if available.
+// Badge matching Noah's apparel logo: tall rounded "pill" outline, NOAH'S over pickup line-art,
+// solid blue band with DETAILING / NOBLE & MOBILE. TODO: swap in the owner's original vector file if available.
 
-export const SHIELD = "M30 10H170Q190 10 190 30V170Q190 205 100 250Q10 205 10 170V30Q10 10 30 10Z";
-const SHIELD_INNER = "M36 20H164Q180 20 180 36V168Q180 198 100 238Q20 198 20 168V36Q20 20 36 20Z";
+export const BADGE_SHAPE = "M100 8A86 86 0 0 1 186 94V166A86 86 0 0 1 14 166V94A86 86 0 0 1 100 8Z";
+const BAND_TOP = 168;
 
 export function TruckArt({ className, strokeWidth = 3.5 }: { className?: string; strokeWidth?: number }) {
   return (
@@ -19,49 +19,49 @@ export function TruckArt({ className, strokeWidth = 3.5 }: { className?: string;
   );
 }
 
-export function Badge({ className, title = "Noah's Detailing badge" }: { className?: string; title?: string }) {
+export function Badge({ className, title = "Noah's Detailing — Noble & Mobile badge" }: { className?: string; title?: string }) {
   return (
     <svg viewBox="0 0 200 260" className={className} role="img" aria-label={title}>
       <defs>
-        <linearGradient id="badge-fill" x1="0" y1="0" x2="0.4" y2="1">
-          <stop offset="0" stopColor="#3D7BFF" />
-          <stop offset="1" stopColor="#1A4FD6" />
-        </linearGradient>
-        <linearGradient id="badge-shine" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0.35" stopColor="#fff" stopOpacity="0" />
-          <stop offset="0.5" stopColor="#fff" stopOpacity="0.18" />
-          <stop offset="0.65" stopColor="#fff" stopOpacity="0" />
-        </linearGradient>
+        <clipPath id="badge-clip">
+          <path d={BADGE_SHAPE} />
+        </clipPath>
       </defs>
-      <path d={SHIELD} fill="url(#badge-fill)" />
-      <path d={SHIELD} fill="url(#badge-shine)" />
-      <path d={SHIELD_INNER} fill="none" stroke="#EAF2FF" strokeOpacity="0.55" strokeWidth="2.5" />
-      <g fill="#EAF2FF" style={{ fontFamily: "var(--font-display-face), 'Arial Narrow', sans-serif" }} fontStyle="italic" textAnchor="middle">
-        <text x="100" y="66" fontSize="36" fontWeight="800" letterSpacing="1">NOAH&apos;S</text>
-        <g transform="translate(34 82) scale(0.66)" color="#EAF2FF">
-          <TruckArt strokeWidth={4.5} />
-        </g>
-        <text x="100" y="176" fontSize="40" fontWeight="900" letterSpacing="0.5">DETAILING</text>
-        <text x="100" y="200" fontSize="12.5" fontWeight="700" letterSpacing="3.5" fontStyle="normal">NOBLE &amp; MOBILE</text>
+      <path d={BADGE_SHAPE} fill="#07090D" />
+      <rect x="0" y={BAND_TOP} width="200" height="100" fill="#2E6BFF" clipPath="url(#badge-clip)" />
+      <path d={BADGE_SHAPE} fill="none" stroke="#2E6BFF" strokeWidth="4.5" />
+      <g style={{ fontFamily: "var(--font-display-face), 'Arial Narrow', sans-serif" }} fontStyle="italic" textAnchor="middle">
+        <text x="100" y="62" fontSize="38" fontWeight="900" letterSpacing="0.5" fill="#2E6BFF">
+          NOAH&apos;S
+        </text>
+        <text x="100" y="206" fontSize="35" fontWeight="900" fill="#07090D">
+          DETAILING
+        </text>
+        <text x="100" y="228" fontSize="11.5" fontWeight="800" letterSpacing="1.5" fill="#07090D" fontStyle="normal">
+          NOBLE &amp; MOBILE
+        </text>
+      </g>
+      <g transform="translate(22 86) scale(0.78)" color="#5AA2FF">
+        <TruckArt strokeWidth={3} />
       </g>
     </svg>
   );
 }
 
-/** Compact mark for the header / favicon sizes: shield + truck, no text. */
+/** Compact mark for the header: the same pill with the truck and blue band, no lettering. */
 export function BadgeMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 200 260" className={className} aria-hidden="true">
       <defs>
-        <linearGradient id="mark-fill" x1="0" y1="0" x2="0.4" y2="1">
-          <stop offset="0" stopColor="#3D7BFF" />
-          <stop offset="1" stopColor="#1A4FD6" />
-        </linearGradient>
+        <clipPath id="mark-clip">
+          <path d={BADGE_SHAPE} />
+        </clipPath>
       </defs>
-      <path d={SHIELD} fill="url(#mark-fill)" />
-      <path d={SHIELD_INNER} fill="none" stroke="#EAF2FF" strokeOpacity="0.6" strokeWidth="5" />
-      <g transform="translate(16 82) scale(0.84)" color="#EAF2FF">
-        <TruckArt strokeWidth={9} />
+      <path d={BADGE_SHAPE} fill="#0B1220" />
+      <rect x="0" y={BAND_TOP - 8} width="200" height="110" fill="#2E6BFF" clipPath="url(#mark-clip)" />
+      <path d={BADGE_SHAPE} fill="none" stroke="#2E6BFF" strokeWidth="12" />
+      <g transform="translate(14 60) scale(0.86)" color="#EAF2FF">
+        <TruckArt strokeWidth={10} />
       </g>
     </svg>
   );
