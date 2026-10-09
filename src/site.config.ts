@@ -1,0 +1,39 @@
+/**
+ * Every business fact lives here so the owner's details can be swapped in one place.
+ * Rule: any UI tied to an empty field (phone, email, towns) hides itself. Never render "TBD" to visitors.
+ */
+export const site = {
+  name: "Noah's Detailing",
+  owner: "Noah Urquhart",
+  ownerFirstName: "Noah",
+  tagline: "Noble & Mobile",
+  city: "Harrisonburg",
+  region: "VA",
+  regionName: "Virginia",
+  serviceArea: "Harrisonburg, VA & surrounding areas",
+  serviceTowns: [] as string[], // TODO: confirm with owner
+  phone: "", // TODO: owner's number (hide UI when empty)
+  email: "", // TODO
+  instagram: "https://www.instagram.com/detailer.noah/",
+  instagramHandle: "@detailer.noah",
+  googleForm:
+    "https://docs.google.com/forms/d/e/1FAIpQLSdPR4x7gAUN4erTGe9WAbN75Ex722b8zwKataubAJweiADp-g/viewform",
+  partnerDiscount: { brand: "Showcar Care", url: "https://showcarcare.com", code: "NOAH", percent: 10 },
+  merch: [
+    { item: "Hoodie", price: 38 },
+    { item: "T-Shirt", price: 26 },
+  ], // TODO confirm current merch prices
+  domain: "https://noahsdetailing.example", // TODO real domain
+  /** Only name the farm client publicly once the owner approves. */
+  farmClientName: "", // TODO: e.g. "Zion's Farm of Virginia" — only with permission
+  credit: { name: "Lee Systems Co.", url: "" }, // TODO: Lee Systems Co. URL if wanted
+};
+
+/** Quote form endpoint (Formspree, Resend route, n8n webhook…). Empty = spec/demo mode. */
+export const quoteEndpoint = process.env.NEXT_PUBLIC_QUOTE_ENDPOINT ?? "";
+
+export const nav = [
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/#work" },
+  { label: "About", href: "/about" },
+] as const;

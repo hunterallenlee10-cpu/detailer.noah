@@ -1,0 +1,496 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #07090d;
+  --panel: #0e131b;
+  --line: #1c2533;
+  --blue: #2e6bff;
+  --blue-glow: #5aa2ff;
+  --blue-deep: #1a4fd6;
+  --foam: #eaf2ff;
+  --muted: #8a97ab;
+  --muted-ink: #4a5568;
+  --chrome: linear-gradient(180deg, #cfd8e6 0%, #8fa3bf 100%);
+  --header-h: 72px;
+  --mobilebar-h: 76px;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-panel: var(--panel);
+  --color-line: var(--line);
+  --color-blue: var(--blue);
+  --color-blue-glow: var(--blue-glow);
+  --color-blue-deep: var(--blue-deep);
+  --color-foam: var(--foam);
+  --color-muted: var(--muted);
+  --color-muted-ink: var(--muted-ink);
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    var(--font-display-face), "Arial Narrow", ui-sans-serif, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--ink);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 8px);
+  }
+
+  body {
+    background: var(--ink);
+    color: var(--foam);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  /* Leave room for the sticky mobile CTA bar so it never covers content. */
+  @media (max-width: 767px) {
+    body {
+      padding-bottom: calc(var(--mobilebar-h) + env(safe-area-inset-bottom));
+    }
+  }
+
+  ::selection {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--blue-glow);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .light :focus-visible {
+    outline-color: var(--blue-deep);
+  }
+}
+
+@layer components {
+  /* ---------- Type ---------- */
+  .display {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blue-glow);
+  }
+
+  .light .eyebrow {
+    color: var(--blue-deep);
+  }
+
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px
+      color-mix(in oklab, var(--muted) 70%, transparent);
+  }
+
+  .text-chrome {
+    background: var(--chrome);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---------- Surfaces ---------- */
+  .light {
+    background: var(--foam);
+    color: var(--ink);
+    color-scheme: light;
+  }
+
+  .hairline {
+    border-color: var(--line);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 48px;
+    padding: 0 1.5rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      transform 0.25s var(--ease-out-expo),
+      background-color 0.25s,
+      border-color 0.25s,
+      color 0.25s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--blue-glow) 50%, transparent) inset,
+      0 10px 30px -10px color-mix(in oklab, var(--blue) 80%, transparent);
+  }
+
+  .btn-primary:hover {
+    background: #3a76ff;
+  }
+
+  .btn-ghost {
+    border: 1px solid color-mix(in oklab, var(--foam) 28%, transparent);
+    color: var(--foam);
+    background: color-mix(in oklab, var(--ink) 30%, transparent);
+    backdrop-filter: blur(6px);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--foam);
+  }
+
+  .light .btn-ghost {
+    border-color: color-mix(in oklab, var(--ink) 25%, transparent);
+    color: var(--ink);
+    background: transparent;
+  }
+
+  .light .btn-ghost:hover {
+    border-color: var(--ink);
+  }
+
+  /* Gloss band that slides across an element on hover (used by buttons + tiles). */
+  .gloss {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gloss::before {
+    content: "";
+    position: absolute;
+    inset: -20% auto -20% 0;
+    width: 45%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      rgb(255 255 255 / 0.22) 45%,
+      rgb(255 255 255 / 0.4) 50%,
+      rgb(255 255 255 / 0.22) 55%,
+      transparent 100%
+    );
+    transform: translateX(-160%) skewX(-18deg);
+  }
+
+  .gloss:hover::before,
+  .gloss:focus-visible::before,
+  .gloss:focus-within::before {
+    transition: transform 0.9s var(--ease-out-expo);
+    transform: translateX(330%) skewX(-18deg);
+  }
+}
+
+/* ---------- Scroll reveal ---------- */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-y, 24px), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.js [data-reveal]:not(.is-in) {
+  opacity: 0;
+}
+
+[data-reveal].is-in {
+  animation: reveal 0.8s var(--ease-out-expo) var(--reveal-delay, 0s) both;
+}
+
+/* ---------- Hero ---------- */
+@keyframes letter-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.35em, 0) skewX(-6deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-letter {
+  display: inline-block;
+  opacity: 0;
+  animation: letter-in 0.9s var(--ease-out-expo) forwards;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fade-up {
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease-out-expo) forwards;
+}
+
+/* Diagonal light sweep — like light sliding across fresh clear coat. */
+@keyframes sweep {
+  0% {
+    transform: translate3d(-160%, 0, 0) skewX(-20deg);
+    opacity: 0;
+  }
+  10%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(600%, 0, 0) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+.sweep {
+  position: absolute;
+  inset: -10% auto -10% 0;
+  width: 38%;
+  pointer-events: none;
+  transform: translate3d(-160%, 0, 0) skewX(-20deg);
+  opacity: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgb(160 200 255 / 0.06) 30%,
+    rgb(255 255 255 / 0.22) 48%,
+    rgb(255 255 255 / 0.32) 50%,
+    rgb(255 255 255 / 0.22) 52%,
+    rgb(160 200 255 / 0.06) 70%,
+    transparent 100%
+  );
+  mix-blend-mode: overlay;
+}
+
+.sweep[data-run="true"] {
+  animation: sweep 1.6s cubic-bezier(0.55, 0.05, 0.25, 1) forwards;
+}
+
+/* Text gloss: a bright band clipped to the headline glyphs. */
+@keyframes text-sweep {
+  from {
+    background-position: 300% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.text-sweep {
+  color: transparent;
+  background: linear-gradient(
+      100deg,
+      transparent 40%,
+      rgb(255 255 255 / 0.95) 50%,
+      transparent 60%
+    )
+    no-repeat;
+  background-size: 60% 100%;
+  background-position: 300% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.text-sweep[data-run="true"] {
+  animation: text-sweep 1.4s cubic-bezier(0.55, 0.05, 0.25, 1) forwards;
+}
+
+@keyframes cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+.scroll-cue {
+  animation: cue 2.2s ease-in-out infinite;
+}
+
+/* ---------- Marquee ---------- */
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 60s) linear infinite;
+}
+
+.marquee-track[data-reverse="true"] {
+  animation-direction: reverse;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---------- Service icon draw-in ---------- */
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.draw path,
+.draw circle,
+.draw line,
+.draw rect,
+.draw polyline,
+.draw ellipse {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.group:hover .draw :is(path, circle, line, rect, polyline, ellipse),
+.group:focus-within .draw :is(path, circle, line, rect, polyline, ellipse) {
+  animation: draw 1s var(--ease-out-expo) both;
+}
+
+/* ---------- Map pulse ---------- */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.4);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse-ring 3s ease-out infinite;
+}
+
+/* ---------- Water beads (CTA band) ---------- */
+.beads {
+  background-image:
+    radial-gradient(
+      circle at 30% 30%,
+      rgb(255 255 255 / 0.55) 0 1.5px,
+      rgb(255 255 255 / 0.12) 2.5px,
+      transparent 5px
+    ),
+    radial-gradient(
+      circle at 30% 30%,
+      rgb(255 255 255 / 0.45) 0 1px,
+      rgb(255 255 255 / 0.1) 2px,
+      transparent 3.5px
+    ),
+    radial-gradient(
+      circle at 30% 30%,
+      rgb(255 255 255 / 0.5) 0 2px,
+      rgb(255 255 255 / 0.12) 3.5px,
+      transparent 7px
+    );
+  background-size:
+    46px 52px,
+    29px 31px,
+    83px 71px;
+  background-position:
+    0 0,
+    13px 17px,
+    31px 9px;
+}
+
+/* ---------- Accordion ---------- */
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-letter,
+  .fade-up,
+  [data-reveal],
+  .js [data-reveal]:not(.is-in) {
+    opacity: 1;
+    animation: none;
+  }
+
+  .sweep,
+  .text-sweep,
+  .pulse-ring,
+  .scroll-cue,
+  .gloss::before {
+    display: none;
+  }
+
+  /* Static, swipeable row instead of an endless ticker */
+  .marquee {
+    overflow-x: auto;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  .marquee-track > [aria-hidden="true"] {
+    display: none;
+  }
+}

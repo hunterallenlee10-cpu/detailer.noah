@@ -1,0 +1,114 @@
+{
+  "_comment": "Keyed by filename stem (without -before/-after). Used by scripts/process-images.mjs for alt text + captions. stock=true marks licensed stock (never captioned as Noah's work). Optional \"focus\": y (0–1) or [x, y] pins the crop centre.",
+  "f150-noahs-truck": {
+    "vehicle": "Noah's white Ford F-150",
+    "service": "Wash & wax",
+    "alt": "Noah's white Ford F-150, freshly washed — Noah's Detailing, mobile detailing in Harrisonburg VA",
+    "focus": [
+      0.62,
+      0.5
+    ]
+  },
+  "minivan-reset": {
+    "vehicle": "Honda minivan",
+    "service": "Full reset",
+    "alt": "Gray Honda minivan after a full reset — mobile detailing in Harrisonburg VA"
+  },
+  "exterior-trim-restoration": {
+    "vehicle": "Jeep Wrangler",
+    "service": "Exterior wash + plastic trim restoration + standard interior",
+    "alt": "White Jeep Wrangler after an exterior wash and plastic trim restoration — mobile detailing in Harrisonburg VA"
+  },
+  "farm-trailers": {
+    "vehicle": "Farm trailers",
+    "service": "Trailer wash",
+    "alt": "White farm trailers after a wash — mobile detailing in Harrisonburg VA"
+  },
+  "headlight": {
+    "vehicle": "Headlights",
+    "service": "Headlight restoration"
+  },
+  "dart-pet-hair": {
+    "vehicle": "Dodge Dart",
+    "service": "Dog hair extraction",
+    "alt": "Dodge Dart interior after dog hair extraction — mobile detailing in Harrisonburg VA"
+  },
+  "jeep-extraction": {
+    "vehicle": "Jeep",
+    "service": "Full interior + extraction",
+    "alt": "Jeep interior console after a full interior detail and extraction — mobile detailing in Harrisonburg VA"
+  },
+  "4runner-full-detail": {
+    "vehicle": "Toyota 4Runner",
+    "service": "Full detail",
+    "alt": "Black Toyota 4Runner after a full detail — mobile detailing in Harrisonburg VA",
+    "focus": 0.36
+  },
+  "camry-seat-shampoo": {
+    "vehicle": "Toyota Camry",
+    "service": "Full detail + seat shampoo",
+    "alt": "Toyota Camry wheel after a full detail — mobile detailing in Harrisonburg VA"
+  },
+  "corvette-c8r": {
+    "vehicle": "Limited-edition Corvette C8.R",
+    "service": "Detail",
+    "alt": "Yellow limited-edition Corvette C8.R after a detail — mobile detailing in Harrisonburg VA"
+  },
+  "miata-wash-wax": {
+    "vehicle": "1995 Mazda Miata",
+    "service": "Wash & wax",
+    "alt": "Green 1995 Mazda Miata after a wash and wax — mobile detailing in Harrisonburg VA"
+  },
+  "boat-sealant": {
+    "vehicle": "Boat",
+    "service": "Inside & out + polymer paint sealant",
+    "alt": "Green wakeboard boat after an inside-and-out detail with polymer paint sealant — mobile detailing in Harrisonburg VA",
+    "focus": [
+      0.42,
+      0.45
+    ]
+  },
+  "tractor": {
+    "vehicle": "Large tractor",
+    "service": "Equipment detail",
+    "alt": "Large green tractor after an equipment detail — mobile detailing in Harrisonburg VA"
+  },
+  "bmw-x3-black": {
+    "vehicle": "Black BMW X3",
+    "service": "Detail",
+    "alt": "Black BMW X3 after a detail — mobile detailing in Harrisonburg VA",
+    "focus": 0.58
+  },
+  "ram3500-wash-wax": {
+    "vehicle": "Ram 3500",
+    "service": "Wash & wax",
+    "alt": "Black Ram 3500 after a wash and wax — mobile detailing in Harrisonburg VA"
+  },
+  "wrx-hand-wax": {
+    "vehicle": "Subaru WRX",
+    "service": "Hand wax",
+    "alt": "Blue Subaru WRX after a hand wax — mobile detailing in Harrisonburg VA"
+  },
+  "stock-hero-pressure-wash": {
+    "vehicle": "",
+    "service": "",
+    "alt": "Black sports car being rinsed with a pressure washer, water spraying off glossy paint",
+    "stock": true,
+    "credit": "Unsplash — https://images.unsplash.com/photo-1520340356584-f9917d1eea6f (Unsplash License)"
+  },
+  "stock-engine-bay": {
+    "vehicle": "",
+    "service": "",
+    "alt": "Clean engine bay under an open hood",
+    "stock": true,
+    "credit": "Unsplash — https://images.unsplash.com/photo-1606577924006-27d39b132ae2 (Unsplash License)",
+    "focus": 0.22
+  },
+  "stock-interior": {
+    "vehicle": "",
+    "service": "",
+    "alt": "Clean leather car seats and dashboard",
+    "stock": true,
+    "credit": "StockSnap — https://cdn.stocksnap.io/img-thumbs/960w/SF6UIKA8HT.jpg (CC0)"
+  }
+}
