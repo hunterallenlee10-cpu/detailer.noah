@@ -50,6 +50,15 @@ const qTop = await p.evaluate(() => document.getElementById("quote").getBounding
 check("Get a Quote glides to the form", Math.abs(qTop - 80) < 6, `top ${Math.round(qTop)}`);
 check("Focus handed to the form heading", (await p.evaluate(() => document.activeElement?.id)) === "quote-heading");
 
+// Logo on the homepage → glides back to the very top and clears the #hash
+await p.getByRole("link", { name: /Noah's Detailing \(home\)/ }).click();
+await p.waitForTimeout(150);
+const logoMid = await p.evaluate(() => scrollY);
+await p.waitForTimeout(1900);
+check("Logo on homepage glides (not a jump)", logoMid > 50, `scrollY at 150ms ${Math.round(logoMid)}`);
+check("Logo on homepage lands at the top", (await p.evaluate(() => scrollY)) < 2, `scrollY ${Math.round(await p.evaluate(() => scrollY))}`);
+check("Logo clears the section hash", (await p.evaluate(() => location.pathname + location.hash)) === "/");
+
 // cross-page hash: /services → "/#work" lands on #work
 await p.goto(base + "/services", { waitUntil: "networkidle" });
 await p.getByRole("contentinfo").getByRole("link", { name: "Work" }).click();
@@ -57,6 +66,14 @@ await p.waitForURL(/\/#work$/);
 await p.waitForTimeout(1500);
 const wTop = await p.evaluate(() => document.getElementById("work")?.getBoundingClientRect().top ?? 9999);
 check("Cross-page /#work lands on the section", Math.abs(wTop - 80) < 40, `top ${Math.round(wTop)}`);
+// Logo from another page → homepage at the top
+await p.goto(base + "/services", { waitUntil: "networkidle" });
+await p.mouse.wheel(0, 2500);
+await p.waitForTimeout(1200);
+await p.getByRole("link", { name: /Noah's Detailing \(home\)/ }).click();
+await p.waitForURL(base + "/");
+await p.waitForTimeout(1200);
+check("Logo from /services opens homepage at the top", (await p.evaluate(() => scrollY)) < 2, `scrollY ${Math.round(await p.evaluate(() => scrollY))}`);
 await p.close();
 
 // Mobile menu: page locked while open; menu link closes + glides
@@ -72,6 +89,12 @@ check("Menu link closes the menu", (await p.getByRole("navigation", { name: "Mob
 check("Scroll unlocked after close", await p.evaluate(() => document.documentElement.style.overflow === ""));
 const mTop = await p.evaluate(() => document.getElementById("work").getBoundingClientRect().top);
 check("Mobile menu link lands on #work", Math.abs(mTop - 80) < 6, `top ${Math.round(mTop)}`);
+// Logo while the mobile menu is open → menu closes, page glides to top
+await p.getByRole("button", { name: "Open menu" }).click();
+await p.waitForTimeout(300);
+await p.getByRole("link", { name: /Noah's Detailing \(home\)/ }).click();
+await p.waitForTimeout(1900);
+check("Logo with menu open → menu closed, at top", (await p.getByRole("navigation", { name: "Mobile" }).count()) === 0 && (await p.evaluate(() => scrollY)) < 2);
 await p.close();
 
 // Reduced motion: Lenis off
