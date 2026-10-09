@@ -494,3 +494,194 @@ details > summary::-webkit-details-marker {
     display: none;
   }
 }
+
+/* ---------- Service-area map ---------- */
+/* The map art is a 1600×1600 frame drawn with "slice" (cover) cropping; labels are HTML so their size never scales.
+   --k = rendered px per map unit = the larger of the two axis scales. */
+.map-frame {
+  container-type: size;
+}
+
+.map-labels {
+  --k: calc(max(100cqw, 100cqh) / 1600);
+}
+
+.map-at {
+  position: absolute;
+  left: calc(50% + (var(--x) - 800) * var(--k));
+  top: calc(50% + (var(--y) - 800) * var(--k));
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.map-ring {
+  border-radius: 999px;
+  background: rgb(7 9 13 / 0.78);
+  padding: 2px 9px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blue-glow);
+  box-shadow: 0 0 0 1px rgb(90 162 255 / 0.45);
+}
+
+.map-ring--inner {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  font-size: 9px;
+  color: rgb(90 162 255 / 0.75);
+}
+
+.map-shield {
+  min-width: 26px;
+  border: 1.5px solid var(--foam);
+  border-radius: 6px 6px 9px 9px;
+  background: var(--blue-deep);
+  padding: 1px 5px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.5);
+}
+
+.map-town {
+  transform: none;
+}
+
+.map-town__dot {
+  position: absolute;
+  left: -3.5px;
+  top: -3.5px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--foam);
+  box-shadow: 0 0 0 3px rgb(7 9 13 / 0.65);
+}
+
+.map-town__name {
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--foam);
+  text-shadow:
+    0 1px 2px #000,
+    0 0 8px rgb(7 9 13 / 0.9);
+}
+
+.map-town--r .map-town__name {
+  left: 9px;
+}
+
+.map-town--l .map-town__name {
+  right: 9px;
+}
+
+.map-town--b .map-town__name {
+  top: 7px;
+  left: 0;
+  transform: translateX(-50%);
+}
+
+.map-town--out {
+  opacity: 0.5;
+}
+
+.map-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, 16px);
+}
+
+.map-home__name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow:
+    0 2px 6px #000,
+    0 0 18px rgb(7 9 13 / 0.9);
+}
+
+.map-home__sub {
+  margin-top: 3px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--blue-glow);
+  text-shadow: 0 1px 4px #000;
+}
+
+@media (min-width: 640px) {
+  .map-phone {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .map-desk {
+    display: none;
+  }
+
+  .map-home {
+    transform: translate(-50%, 12px);
+  }
+
+  .map-home__name {
+    font-size: 18px;
+  }
+
+  .map-home__sub {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .map-town__name {
+    font-size: 13px;
+  }
+
+  .map-home__name {
+    font-size: 32px;
+  }
+
+  .map-ring {
+    font-size: 11px;
+  }
+
+  .map-shield {
+    font-size: 11px;
+  }
+}
+
+/* Service zone blooms out from home base when the map scrolls into view */
+@keyframes zone-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.map-zone {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+
+.is-in .map-zone {
+  animation: zone-in 1.6s var(--ease-out-expo) 0.15s both;
+}

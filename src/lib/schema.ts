@@ -21,6 +21,11 @@ export function businessSchema() {
         name: site.city,
         containedInPlace: { "@type": "State", name: site.regionName },
       },
+      {
+        "@type": "GeoCircle",
+        geoMidpoint: { "@type": "GeoCoordinates", latitude: site.geo.lat, longitude: site.geo.lon },
+        geoRadius: Math.round(site.serviceRadiusMiles * 1609.34), // metres
+      },
       ...site.serviceTowns.map((t) => ({ "@type": "City", name: t })),
     ],
     sameAs: [site.instagram],

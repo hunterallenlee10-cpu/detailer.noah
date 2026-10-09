@@ -133,9 +133,9 @@ export default function HarrisonburgPage() {
                     yellowed lenses so they shine brighter at night.
                   </p>
                   <p>
-                    I serve {site.serviceArea}
-                    {site.serviceTowns.length ? `, including ${site.serviceTowns.join(", ")}` : ""}. Not sure if you&apos;re in range? Put your address in the quote form and I&apos;ll let
-                    you know.
+                    I serve Harrisonburg, VA and about {site.serviceRadiusMiles} miles around it
+                    {site.serviceTowns.length ? `, including ${site.serviceTowns.join(", ")}` : ""}. Farther than that? Request a quote and I&apos;ll find a way to get
+                    to you.
                   </p>
                 </div>
               </Reveal>

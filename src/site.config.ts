@@ -12,6 +12,9 @@ export const site = {
   regionName: "Virginia",
   serviceArea: "Harrisonburg, VA & surrounding areas",
   serviceTowns: [] as string[], // TODO: confirm with owner
+  /** Radius of the service-area map zone (≈100-mile diameter). TODO: confirm with owner. */
+  serviceRadiusMiles: 50,
+  geo: { lat: 38.4496, lon: -78.8689 }, // Harrisonburg — centre of the service-area map
   phone: "", // TODO: owner's number (hide UI when empty)
   email: "", // TODO
   instagram: "https://www.instagram.com/detailer.noah/",
