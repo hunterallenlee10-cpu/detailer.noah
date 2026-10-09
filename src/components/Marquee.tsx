@@ -1,10 +1,10 @@
 import { vehicles } from "@/data/vehicles";
-import { SHIELD } from "./Badge";
+import { BADGE_SHAPE } from "./Badge";
 
 function Glyph() {
   return (
     <svg viewBox="0 0 200 260" className="mx-6 h-5 w-auto shrink-0 text-blue sm:mx-9 sm:h-7" aria-hidden="true">
-      <path d={SHIELD} fill="currentColor" />
+      <path d={BADGE_SHAPE} fill="currentColor" />
     </svg>
   );
 }
