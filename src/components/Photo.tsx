@@ -39,8 +39,6 @@ export function Photo({ id, crop = "tall", sizes, priority, className = "", phot
         sizes={sizes}
         preload={priority}
         fetchPriority={priority ? "high" : undefined}
-        placeholder="blur"
-        blurDataURL={c.blurDataURL}
         className={`object-cover ${className}`}
       />
     );

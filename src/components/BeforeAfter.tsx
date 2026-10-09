@@ -1,10 +1,10 @@
-import { pairs, getLabel } from "@/lib/photos";
+import { featuredWork, getLabel, getPhoto, pairs } from "@/lib/photos";
 import { CompareSlider } from "./CompareSlider";
 import { Photo } from "./Photo";
 import { Reveal } from "./Reveal";
 
-// Featured "after" shots when no before/after pairs exist yet.
-const FEATURED = ["corvette-c8r", "4runner-full-detail", "miata-wash-wax"];
+// Without pairs: a big "after" shot plus two more. With one pair: the slider takes the big slot.
+const FALLBACK_LEAD = "4runner-full-detail";
 
 function Caption({ vehicle, service }: { vehicle: string; service: string }) {
   return (
@@ -30,14 +30,14 @@ export function BeforeAfter() {
             </h2>
           </div>
           <p className="max-w-sm text-muted">
-            {sliders.length
-              ? "Drag the handle. Same vehicle, same angle — just a few hours apart."
+            {sliders.length && getPhoto(sliders[0].after.id)
+              ? "Drag the handle to compare. Real jobs from around the Valley — the details most washes skip."
               : "Real jobs from around the Valley. Paint, interiors, wheels — the details most washes skip."}
           </p>
         </Reveal>
 
-        {sliders.length ? (
-          <ul className={`mt-14 grid gap-8 ${sliders.length > 1 ? "sm:grid-cols-2" : "max-w-xl"}`}>
+        {sliders.length > 1 ? (
+          <ul className="mt-14 grid gap-8 sm:grid-cols-2">
             {sliders.map((pair, i) => (
               <Reveal as="li" key={pair.id} delay={i * 0.08}>
                 <CompareSlider pair={pair} sizes="(min-width: 640px) 50vw, 100vw" />
@@ -47,22 +47,29 @@ export function BeforeAfter() {
           </ul>
         ) : (
           <ul className="mt-14 grid gap-6 md:grid-cols-12 md:grid-rows-2">
-            {FEATURED.map((id, i) => {
-              const l = getLabel(id);
-              return (
-                <Reveal
-                  as="li"
-                  key={id}
-                  delay={i * 0.08}
-                  className={i === 0 ? "flex flex-col md:col-span-7 md:row-span-2" : "md:col-span-5"}
-                >
-                  <div className={`gloss relative overflow-hidden rounded-2xl bg-panel ${i === 0 ? "aspect-[4/5] md:aspect-auto md:min-h-0 md:flex-1" : "aspect-[16/10]"}`}>
-                    <Photo id={id} crop={i === 0 ? "tall" : "wide"} sizes={i === 0 ? "(min-width: 768px) 58vw, 100vw" : "(min-width: 768px) 42vw, 100vw"} />
+            <Reveal as="li" className="flex flex-col md:col-span-7 md:row-span-2">
+              {sliders[0] ? (
+                <>
+                  <CompareSlider pair={sliders[0]} sizes="(min-width: 768px) 58vw, 100vw" />
+                  <Caption vehicle={sliders[0].vehicle} service={sliders[0].service} />
+                </>
+              ) : (
+                <>
+                  <div className="gloss relative aspect-[4/5] overflow-hidden rounded-2xl bg-panel md:aspect-auto md:min-h-0 md:flex-1">
+                    <Photo id={FALLBACK_LEAD} crop="tall" sizes="(min-width: 768px) 58vw, 100vw" />
                   </div>
-                  <Caption {...l} />
-                </Reveal>
-              );
-            })}
+                  <Caption {...getLabel(FALLBACK_LEAD)} />
+                </>
+              )}
+            </Reveal>
+            {featuredWork.map((id, i) => (
+              <Reveal as="li" key={id} delay={(i + 1) * 0.08} className="md:col-span-5">
+                <div className="gloss relative aspect-[16/10] overflow-hidden rounded-2xl bg-panel">
+                  <Photo id={id} crop="wide" sizes="(min-width: 768px) 42vw, 100vw" />
+                </div>
+                <Caption {...getLabel(id)} />
+              </Reveal>
+            ))}
           </ul>
         )}
       </div>

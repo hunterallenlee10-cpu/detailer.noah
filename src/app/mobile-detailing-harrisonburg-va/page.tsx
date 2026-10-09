@@ -41,9 +41,9 @@ const localFaq = [
 ];
 
 const photos = [
-  { id: "4runner-full-detail", alt: "Toyota 4Runner after a full detail — mobile detailing Harrisonburg VA" },
-  { id: "camry-seat-shampoo", alt: "Toyota Camry seats after shampoo and extraction — mobile detailing Harrisonburg VA" },
-  { id: "ram3500-wash-wax", alt: "Ram 3500 after a wash and wax — mobile detailing Harrisonburg VA" },
+  { id: "4runner-full-detail", alt: "Black Toyota 4Runner after a full detail — mobile detailing Harrisonburg VA" },
+  { id: "dart-pet-hair", alt: "Dodge Dart interior after dog hair extraction — mobile detailing Harrisonburg VA" },
+  { id: "ram3500-wash-wax", alt: "Black Ram 3500 after a wash and wax — mobile detailing Harrisonburg VA" },
 ];
 
 export default function HarrisonburgPage() {

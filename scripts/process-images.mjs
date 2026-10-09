@@ -7,9 +7,11 @@
  * - auto-orients (EXIF), crops to 16:9 (wide), 4:5 (tall) and 1:1 (square)
  * - singles use attention-based cropping; before/after pairs use identical centre crops so sliders line up
  * - writes tiny blur placeholders + local-SEO alt text (from src/data/photo-meta.json, else the filename)
+ * - optional "focus": y (0–1) or [x, y] in photo-meta.json pins the crop centre when the automatic crop misses the vehicle
  */
 import { readdir, readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import sharp from "sharp";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
@@ -36,10 +38,10 @@ function describe(stem, stage) {
   if (meta?.alt && !stage) alt = meta.alt;
   else if (stage === "before") alt = `${vehicle} before ${service.toLowerCase()} — ${LOCATION}`;
   else alt = `${vehicle} after ${service.toLowerCase()} — ${LOCATION}`;
-  return { vehicle, service, alt, known: Boolean(meta) };
+  return { vehicle, service, alt, known: Boolean(meta), stock: Boolean(meta?.stock), credit: meta?.credit };
 }
 
-async function cropTo(input, name, { ratio, maxW }, position, outBase) {
+async function cropTo(input, name, { ratio, maxW }, position, outBase, focus) {
   const { width: W, height: H } = await sharp(input).rotate().metadata().then((m) =>
     // metadata() reports pre-rotation dims; swap for 90° orientations
     m.orientation && m.orientation >= 5 ? { width: m.height, height: m.width } : m,
@@ -47,9 +49,21 @@ async function cropTo(input, name, { ratio, maxW }, position, outBase) {
   const cw = Math.min(W, H * ratio);
   const tw = Math.round(Math.min(cw, maxW));
   const th = Math.round(tw / ratio);
-  const pipeline = sharp(input).rotate().resize(tw, th, { fit: "cover", position });
-  const file = `${outBase}-${name}.webp`;
-  await pipeline.clone().webp({ quality: 78 }).toFile(path.join(OUT, file));
+  let pipeline;
+  if (focus) {
+    // Manual focus point: extract the largest ratio-correct box centred on it, then scale.
+    const [fx, fy] = Array.isArray(focus) ? focus : [0.5, focus];
+    const ch = Math.round(cw / ratio);
+    const left = Math.round(Math.min(Math.max(fx * W - cw / 2, 0), W - cw));
+    const top = Math.round(Math.min(Math.max(fy * H - ch / 2, 0), H - ch));
+    pipeline = sharp(input).rotate().extract({ left, top, width: Math.round(cw), height: ch }).resize(tw, th, { fit: "cover" });
+  } else {
+    pipeline = sharp(input).rotate().resize(tw, th, { fit: "cover", position });
+  }
+  const buf = await pipeline.clone().webp({ quality: 78 }).toBuffer();
+  // Content hash in the filename busts image-optimizer/CDN caches whenever a photo changes.
+  const file = `${outBase}-${name}.${createHash("sha1").update(buf).digest("hex").slice(0, 8)}.webp`;
+  await writeFile(path.join(OUT, file), buf);
   const blur = await pipeline.clone().resize(16, Math.max(1, Math.round(16 / ratio))).webp({ quality: 40 }).toBuffer();
   return { src: `/work/${file}`, width: tw, height: th, blurDataURL: `data:image/webp;base64,${blur.toString("base64")}` };
 }
@@ -74,7 +88,8 @@ async function main() {
     const position = stage ? "centre" : sharp.strategy.attention;
     const input = await readFile(path.join(SRC, file));
     const crops = {};
-    for (const [name, spec] of Object.entries(CROPS)) crops[name] = await cropTo(input, name, spec, position, id);
+    const focus = stage ? undefined : META[base]?.focus;
+    for (const [name, spec] of Object.entries(CROPS)) crops[name] = await cropTo(input, name, spec, position, id, focus);
     const d = describe(base, stage);
     if (!d.known) unknown.push(file);
     photos.push({
@@ -86,9 +101,10 @@ async function main() {
       vehicle: d.vehicle,
       service: d.service,
       ...(stage ? { stage } : {}),
+      ...(d.stock ? { stock: true, credit: d.credit } : {}),
       crops,
     });
-    console.log(`✓ ${file} → /work/${id}-{wide,tall,square}.webp`);
+    console.log(`✓ ${file} → /work/${id}-{wide,tall,square}.<hash>.webp`);
   }
 
   const pairs = [...pairStems].map((base) => {

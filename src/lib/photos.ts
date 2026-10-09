@@ -21,23 +21,28 @@ export function getLabel(id: string): { vehicle: string; service: string } {
 export const hasPhotos = photos.length > 0;
 export { photos, pairs };
 
-/** Work grid slots, in display order (filenames from the photo checklist). */
+/** Featured in the homepage "Work" section (next to any before/after sliders). */
+export const featuredWork = ["corvette-c8r", "bmw-x3-black"];
+
+/** IG-style work grid slots, in display order (filenames from the photo checklist). */
 export const workSlots = [
   "4runner-full-detail",
-  "jeep-extraction",
-  "corvette-c8r",
-  "camry-seat-shampoo",
-  "dart-pet-hair",
+  "exterior-trim-restoration",
   "miata-wash-wax",
-  "bmw-x3-black",
+  "jeep-extraction",
   "ram3500-wash-wax",
+  "dart-pet-hair",
   "wrx-hand-wax",
+  "minivan-reset",
+  "camry-seat-shampoo",
 ];
 
 /** Work photos for galleries: real photos first (non-"before" shots), else the slot list. */
 export function galleryIds(limit = 9): string[] {
-  const real = photos.filter((p) => p.stage !== "before").map((p) => p.id.replace(/-after$/, ""));
+  // Only Noah's own photos — never stock — and nothing already shown elsewhere on the homepage.
+  const shownElsewhere = ["f150-noahs-truck", "boat-sealant", "tractor", "farm-trailers", "headlight", ...featuredWork];
+  const real = photos.filter((p) => p.stage !== "before" && !p.stock).map((p) => p.id.replace(/-after$/, ""));
   const ordered = [...workSlots.filter((s) => real.includes(s)), ...real.filter((r) => !workSlots.includes(r))];
-  const pool = ordered.filter((id) => !["f150-noahs-truck", "boat-sealant", "tractor", "farm-trailers"].includes(id));
+  const pool = ordered.filter((id) => !shownElsewhere.includes(id));
   return (pool.length ? pool : workSlots).slice(0, limit);
 }

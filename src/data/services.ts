@@ -22,7 +22,7 @@ export const services: Service[] = [
     long: "A full exterior wash with real attention on the parts most washes rush. Wheels get extra time for brake dust, and faded plastic trim can be brought back to a deep, even finish.",
     includes: ["Extra time on wheels for brake dust", "Plastic trim restoration", "Spray wax or wash-and-wax finish"],
     icon: "mitt",
-    photo: "exterior-trim-restoration",
+    photo: "4runner-full-detail",
   },
   {
     slug: "interior-wash",
@@ -31,7 +31,7 @@ export const services: Service[] = [
     long: "Your cabin, back to the way it should feel. Pick a standard interior to freshen things up, or pair it with an exterior wash for a full detail — inside and out.",
     includes: ["Standard interior or full interior", "Pairs with an exterior wash for a full detail", "Quick maintenance cleans available"],
     icon: "vacuum",
-    photo: "4runner-full-detail",
+    photo: "jeep-extraction",
   },
   {
     slug: "paint-correction-wax",
@@ -40,7 +40,7 @@ export const services: Service[] = [
     long: "Correction for the scratches, swirls and water spots that dull your paint — including minor paint-transfer scuffs — finished with protection that makes it pop.",
     includes: ["Minor correction on paint-transfer scuffs", "Hand wax or spray wax", "Polymer paint sealant"],
     icon: "polisher",
-    photo: "miata-wash-wax",
+    photo: "wrx-hand-wax",
   },
   {
     slug: "steam-cleaning-shampoo",
@@ -49,7 +49,7 @@ export const services: Service[] = [
     long: "Extraction isn't just for stains. There's a lot of dirt embedded in carpets and seats that a vacuum never catches — shampoo and extraction pull it out.",
     includes: ["Seat shampoo", "Carpet & seat extraction", "Not just for stains — embedded dirt too"],
     icon: "steam",
-    photo: "camry-seat-shampoo",
+    photo: "stock-interior",
   },
   {
     slug: "pet-hair-removal",
@@ -77,6 +77,7 @@ export const services: Service[] = [
     long: "The detail most people forget. Pop the hood and have the engine bay cleaned up to match the rest of the vehicle.",
     includes: ["Under-the-hood clean-up", "Add it to any exterior or full detail"],
     icon: "engine",
+    photo: "stock-engine-bay",
   },
 ];
 

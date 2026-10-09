@@ -11,6 +11,9 @@ export type Photo = {
   service: string;
   /** "before" / "after" when the file is half of a pair. */
   stage?: "before" | "after";
+  /** Licensed stock (atmosphere only — never captioned as Noah's work). */
+  stock?: boolean;
+  credit?: string;
   crops: { wide: Crop; tall: Crop; square: Crop };
 };
 

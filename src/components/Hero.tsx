@@ -7,7 +7,8 @@ import { HeroSweep } from "./HeroSweep";
 import { QuoteLink } from "./QuoteLink";
 import { ArrowRight, CameraIcon, PinIcon, TruckIcon } from "./icons";
 
-const HERO_PHOTO = "f150-noahs-truck";
+// Licensed stock mood shot (no caption, not presented as a job). Swap to "f150-noahs-truck" for Noah's own truck.
+const HERO_PHOTO = "stock-hero-pressure-wash";
 
 function Letters({ text, start = 0 }: { text: string; start?: number }) {
   return (
@@ -38,8 +39,8 @@ export function Hero() {
             <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(180deg,transparent,rgba(46,107,255,0.08))]" />
           </div>
         )}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,9,13,0.55)_0%,rgba(7,9,13,0.15)_35%,rgba(7,9,13,0.75)_75%,#07090d_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,9,13,0.75)_0%,transparent_60%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,9,13,0.7)_0%,rgba(7,9,13,0.35)_35%,rgba(7,9,13,0.8)_75%,#07090d_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,9,13,0.85)_0%,rgba(7,9,13,0.4)_55%,transparent_80%)]" />
       </div>
 
       <HeroSweep />
