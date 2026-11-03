@@ -94,7 +94,7 @@ export function Footer() {
           <p>
             Website by{" "}
             {site.credit.url ? (
-              <a href={site.credit.url} className="underline-offset-4 hover:text-foam hover:underline">
+              <a href={site.credit.url} target="_blank" rel="noopener" className="underline-offset-4 hover:text-foam hover:underline">
                 {site.credit.name}
               </a>
             ) : (

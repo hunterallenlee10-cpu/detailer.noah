@@ -30,7 +30,7 @@ export const site = {
   domain: "https://noahsdetailing.example", // TODO real domain
   /** Only name the farm client publicly once the owner approves. */
   farmClientName: "", // TODO: e.g. "Zion's Farm of Virginia" — only with permission
-  credit: { name: "Lee Systems Co.", url: "" }, // TODO: Lee Systems Co. URL if wanted
+  credit: { name: "Lee Enterprises Unlimited", url: "https://www.leeenterprisesunlimited.com/" },
 };
 
 /** Quote form endpoint (Formspree, Resend route, n8n webhook…). Empty = spec/demo mode. */
